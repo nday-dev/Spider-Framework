@@ -32,34 +32,34 @@ class BasePlatform(object):
         """
         pass
 
-    class Shell(self.Common):
+    class Shell(Common):
         """
         Redefine members here for those which will be inherited to all shells.
         """
         pass
 
-    class System(self.Common):
+    class System(Common):
         """
         Redefine members here for those which will be inherited to all systems.
         """
         pass
 
-    class Posix(self.Shell):
+    class Posix(Shell):
         pass
 
-    class NT(self.Shell):
+    class NT(Shell):
         pass
 
-    class OSX(self.System):
+    class OSX(System):
         pass
 
-    class Linux(self.System):
+    class Linux(System):
         pass
 
-    class Windows(self.System):
+    class Windows(System):
         pass
 
-    class Cygwin(self.System):
+    class Cygwin(System):
         pass
 
 if __name__ == '__main__':
