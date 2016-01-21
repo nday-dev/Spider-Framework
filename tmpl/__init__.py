@@ -4,3 +4,5 @@ List:
     Platform
     Prompt
 """
+import Platform
+import Prompt
