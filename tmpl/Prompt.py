@@ -27,7 +27,7 @@ class ErrPrompt(BasePrompt):
         """
         return True if want to replace, and False for the other
         """
-        self.PrintErr("Warning: '%s' already exists, replace?(y/n)" %(Files))
+        self.PrintErr("Warning: '%s' already exists, replace?(y/n)" %(File))
         tmp = raw_input()
         if tmp == 'y' or tmp == 'Y':
             return True
