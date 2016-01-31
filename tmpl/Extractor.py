@@ -15,17 +15,21 @@ class Extractor(object):
         self.DefaultTemplate = Template
         self.Extract = Method
 
-    def ChangeMethod(self, Method = self.Extract):
+    def ChangeMethod(self, Method = None):
         """
         Use this function to reset the method of self.Extract after initialization.
+        Method Default = self.Extract
         """
-        self.Extract = Method
+        if Method:
+            self.Extract = Method
 
-    def ChangeTemplate(self, Template = self.DefaultTemplate):
+    def ChangeTemplate(self, Template = None):
         """
         Use this function to reset the value of sle.DefaultTemplate after initialization
+        Template Default = self.DefaultTemplate
         """
-        self.DefaultTemplate = Template
+        if Template:
+            self.DefaultTemplate = Template
     
     def _ReFind(self, Pattern, Content, group = 0, default = ''):
         """
@@ -64,11 +68,14 @@ class Extractor(object):
         """
         self._RePattern = self._ReInit()
 
-    def _ReInit(self, RegularExpression = self.DefaultTemplate):
+    def _ReInit(self, RegularExpression = None):
         """
         Practice of self.ReInit.
         Use recurrence
+        RegularExpression Default = self.DefaultTemplate
         """
+        if RegularExpression == None:
+            RegularExpression = self.DefaultTemplate
         Pattern = {}
         for item in RegularExpression.iteritems():
             key, value = item
@@ -101,11 +108,14 @@ class Extractor(object):
         """
         self._ReExtractor(content)
 
-    def _ReExtractor(self, content, Pattern = self._RePattern):
+    def _ReExtractor(self, content, Pattern = None):
         """
         Practice of self.ReExtractor.
         Use recurrence
+        Pattern Default = self._RePattern
         """
+        if Pattern == None:
+            Pattern = self._RePattern
         Info = {}
         for item in Pattern.iteritems():
             key, value = item
