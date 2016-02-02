@@ -1,7 +1,6 @@
 #--coding:utf-8--
 #StartPage.py
 #Create/Edit file:'../cfg/StartPage.json'
-import os
 import re
 import sys
 import json
@@ -15,6 +14,9 @@ class PromptClass(Prompt.ErrPrompt):
 def main():
     prompt = PromptClass()
     cfgfile = CreateFile('StartPage.json', 'cfg', TransferredMeaning = True, Prompt = True)
+    if not cfgfile:
+        prompt.Exit()
+        sys.exit(False)
     URL = []
     IllegalChars = r"[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\-\.\_\~\:\/\?\#\[\]\@\!\$\&\'\(\)\*\+\,\;\=]"
     try:
