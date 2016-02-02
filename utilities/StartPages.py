@@ -11,10 +11,6 @@ class PromptClass(Prompt.ErrPrompt):
     def InitInput(self):
         print ("Please input URL(s), use EOF to finish. \n(CTRL+D. if not work for Windows, try CTRL+Z)")
 
-class PlatformClass(Platform.BasePlatform):
-    class OSX(Platform.BasePlatform.System):
-        pass
-
 def main():
     prompt = PromptClass()
     pwd = os.getcwd()
