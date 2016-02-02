@@ -134,3 +134,6 @@ class Extractor(object):
                 raise TypeError ("Unexpected value type!")
 
         return Info
+
+if __name__ == '__main__':
+    raise EnvironmentError("DO NOT DIRECTLY RUN THIS TEMPLATE!")
