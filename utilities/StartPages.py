@@ -5,7 +5,8 @@ import os
 import re
 import sys
 import json
-from __tmpl__ import *
+from __common__code__ import CreateFile
+from __tmpl__ import Prompt
 
 class PromptClass(Prompt.ErrPrompt):
     def InitInput(self):
@@ -13,17 +14,7 @@ class PromptClass(Prompt.ErrPrompt):
 
 def main():
     prompt = PromptClass()
-    pwd = os.getcwd()
-    os.chdir(os.path.pardir)
-    os.chdir(os.path.curdir + os.path.sep + 'cfg')
-    cfg = os.getcwd()
-    os.chdir(pwd)
-
-    if os.path.exists(os.path.realpath(cfg + os.path.sep + 'StartPage.json')):
-        if not prompt.FileExist():
-            prompt.Exit()
-            sys.exit(False)
-    cfgfile = open(os.path.realpath(cfg + os.path.sep + r'StartPage.json'), 'wb')
+    cfgfile = CreateFile('StartPage.json', 'cfg', TransferredMeaning = True, Prompt = True)
     URL = []
     IllegalChars = r"[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\-\.\_\~\:\/\?\#\[\]\@\!\$\&\'\(\)\*\+\,\;\=]"
     try:
