@@ -5,7 +5,7 @@ import functools
 import chardet # Required
 
 class Extractor(object):
-    def __init__(self, Method, Template = ""):
+    def __init__(self, Method = None, Template = ""):
         """
         Method can be cumstomed or selected from a list of members:
         List:
@@ -19,6 +19,8 @@ class Extractor(object):
         """
         Use this function to reset the method of self.Extract after initialization.
         Method Default = self.Extract
+        List of methods available:
+            self.ReExtractor
         """
         if Method:
             self.Extract = Method
@@ -30,6 +32,18 @@ class Extractor(object):
         """
         if Template:
             self.DefaultTemplate = Template
+    
+    def encode(self, content, decoding = None, encoding = None):
+        try:
+            if not isinstance(content, unicode):
+                if decoding == None:
+                    decoding = chardet.detect(content).get('encoding', 'utf-8')
+                content = content.decode(decoding)
+            if encoding == None:
+                return content
+            return content.encode(encoding)
+        except ValueError:
+            return content
     
     def _ReFind(self, Pattern, Content, group = 0, default = ''):
         """
@@ -82,7 +96,9 @@ class Extractor(object):
             if isinstance(value, basestring):
                 Pattern[key] = re.compile(self.encode(value))
             elif isinstance(value, list) or isinstance(value, tuple):
-                Pattern[key] = map(re.compile, map(self.encode, value))
+                Pattern[key] = map(lambda(x): x[key], # Get the result
+                        map(self._ReInit, # Recurrence to deal with multi-possible-type data
+                            map(lambda(x): {key: x}, value))) # Pack the data so is iterable with .iteritems()
             elif isinstance(value, dict):
                 Pattern[key] = self._ReInit(value)
             else:
@@ -122,14 +138,15 @@ class Extractor(object):
             if isinstance(value, re._pattern_type):
                 Info[key] = self._ReFind(value, content, group = 1)
             elif isinstance(value, list) or isinstance(value, tuple):
-                Info[key] = map(functools.partial(self._ReExtractor, Pattern = value[1]),
-                        value[0].findall(content))
+                Info[key] = map(lambda(x): x[key], # Get result from pack
+                        map(functools.partial(self._ReExtractor, Pattern = value[1]), # Recurrence
+                            map(lambda(x): {key: x}, value[0].findall(content)))) # Pack to pass '.iteritems()'
             elif isinstance(value, dict):
                 try:
                     Info[key] = self._ReExtractor(self._ReFind(value['InfoRange'], content, group = 1),
                             {key: value['Pattern']})[key]
                 except KeyError:
-                    raise KeyError ("Unexpected format for dict!")
+                    Info[key] = self._ReExtractor(content, value) # For Recurrence from list
             else:
                 raise TypeError ("Unexpected value type!")
 
