@@ -3,7 +3,9 @@
 Import all things in tmpl
 ------------
 List:
+    Extractor
     Platform
+    Prompt
 """
 
 if __name__ == '__main__':
