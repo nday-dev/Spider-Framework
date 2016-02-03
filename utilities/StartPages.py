@@ -11,6 +11,12 @@ class PromptClass(Prompt.ErrPrompt):
     def InitInput(self):
         print ("Please input URL(s), use EOF to finish. \n(CTRL+D. if not work for Windows, try CTRL+Z)")
 
+    def IllegalURL(self):
+        """
+        For URL with illegal characters
+        """
+        self.PrintErr("Error: URL include illegal characters!")
+
 def main():
     prompt = PromptClass()
     cfgfile = CreateFile('StartPage.json', 'cfg', TransferredMeaning = True, Prompt = True)

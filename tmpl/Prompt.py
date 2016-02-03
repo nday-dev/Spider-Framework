@@ -16,22 +16,6 @@ class ErrPrompt(BasePrompt):
         """
         sys.stderr.write(content + '\n')
         sys.stderr.flush()
-
-    def IllegalURL(self):
-        """
-        For URL with illegal characters
-        """
-        self.PrintErr("Error: URL include illegal characters!")
-
-    def FileExist(self, File = "File"):
-        """
-        return True if want to replace, and False for the other
-        """
-        self.PrintErr("Warning: '%s' already exists, replace?(y/n)" %(File))
-        tmp = raw_input()
-        if tmp == 'y' or tmp == 'Y':
-            return True
-        return False
     
     def Exit(self):
         self.PrintErr("Info: Terminated")
