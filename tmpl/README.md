@@ -2,6 +2,8 @@
 > Templates of objects
 ---
 ##Template:
+- cfgFile
+    - A template for creating cfg files under $cfg folder, provide cover and edit modes.
 - Extractor
     - A template for info extractors, support Regular Expression now.
 - Platform
