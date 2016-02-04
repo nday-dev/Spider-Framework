@@ -28,7 +28,10 @@ class cfgFile(object):
         self.File.write(content)
 
     def __del__(self):
-        self.CloseFile()
+        try:
+            self.CloseFile()
+        except AttributeError:
+            pass
 
     def GetPath(name): # Name is a the name of part in this project file structure, like "cfg"
         """
