@@ -3,6 +3,7 @@
 Import all things in tmpl
 ------------
 List:
+    cfgFile
     Extractor
     Platform
     Prompt
