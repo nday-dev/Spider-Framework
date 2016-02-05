@@ -1,10 +1,12 @@
 """
 All class templated which can be derivated.
 List:
+    cfgFile
+    Extractor
     Platform
     Prompt
-    Extractor
 """
+import cfgFile
+import Extractor
 import Platform
 import Prompt
-import Extractor
