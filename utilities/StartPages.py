@@ -4,7 +4,7 @@
 import re
 import sys
 import json
-from __common__code__ import CreateFile
+from __tmpl__ import cfgFile
 from __tmpl__ import Prompt
 
 class PromptClass(Prompt.ErrPrompt):
@@ -19,11 +19,19 @@ class PromptClass(Prompt.ErrPrompt):
 
 def main():
     prompt = PromptClass()
-    cfgfile = CreateFile('StartPage.json', 'cfg', TransferredMeaning = True, Prompt = True)
+    cfgfile = cfgFile.cfgFile()
+    content = cfgfile.InitFile('StartPage.json', 'cfg', TransferredMeaning = True, Prompt = True)
     if not cfgfile:
         prompt.Exit()
         sys.exit(False)
-    URL = []
+    if content == '':
+        URL = []
+    else:
+        prompt.PrintErr("For Edit mode, only append URLs is allowed. Delete need to be done by yourself.")
+        URL = json.loads(content)
+        prompt.PrintErr("URLs:")
+        map(prompt.PrintErr, URL)
+
     IllegalChars = r"[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\-\.\_\~\:\/\?\#\[\]\@\!\$\&\'\(\)\*\+\,\;\=]"
     try:
         prompt.InitInput()
@@ -35,7 +43,8 @@ def main():
     except EOFError:
         prompt.Exit()
     json.dump(URL, cfgfile)
-    cfgfile.close()
+    cfgfile.SaveFile()
+    cfgfile.CloseFile()
 
     return
 
