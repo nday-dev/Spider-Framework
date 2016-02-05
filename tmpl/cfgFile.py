@@ -18,8 +18,8 @@ class PromptClass(Prompt.ErrPrompt):
             e if user prefer editing mode
             q if user want to quit the action
         """
-        self.PrintErr("Warning: '%s' already exists, please choose the action:" + 
-                "\n(c)over/ (e)dit/ (q)uit " %(File))
+        self.PrintErr("Warning: '%s' already exists, please choose the action:" %(File) +
+                "\n(c)over/ (e)dit/ (q)uit: ")
         tmp = raw_input()
         return tmp[0].lower()
 
@@ -33,7 +33,7 @@ class cfgFile(object):
         except AttributeError:
             pass
 
-    def GetPath(name): # Name is a the name of part in this project file structure, like "cfg"
+    def GetPath(self, name): # Name is a the name of part in this project file structure, like "cfg"
         """
         Return string: realpath of part in this project file structure
         Sample of name: "cfg", "$cfg"
@@ -48,7 +48,7 @@ class cfgFile(object):
 
         return path
     
-    def InitFile(name, path, TransferredMeaning = False, Prompt = False, Force = False):
+    def InitFile(self, name, path, TransferredMeaning = False, Prompt = False, Force = False):
         """
         Arguments:
             name is the name of file
@@ -85,8 +85,11 @@ class cfgFile(object):
                 self.File = self.FileFunction('wb')
                 return ''
             elif mode == 'e':
-                self.File = self.FileFunction('ab')
-                return self.File.read()
+                File = self.FileFunction('rb')
+                content = File.read()
+                File.close()
+                self.File = self.FileFunction('wb')
+                return content
             elif mode == 'q':
                 prompt.CreateFileFail()
                 return None
