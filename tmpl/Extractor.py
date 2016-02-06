@@ -8,12 +8,16 @@ class Extractor(object):
     def __init__(self, Method = None, Template = ""):
         """
         Method can be cumstomed or selected from a list of members:
+        A string with its name is also allowed (using eval)
         List:
             RegularExpression(content, template = self.DefaultTemplate)
         Template is the pattern that methods uses
         """
         self.DefaultTemplate = Template
-        self.Extract = Method
+        if isinstance(Method, basestring):
+            self.Extract = eval('self.' + Method)
+        else:
+            self.Extract = Method
 
     def ChangeMethod(self, Method = None):
         """
