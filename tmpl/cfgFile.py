@@ -23,16 +23,7 @@ class PromptClass(Prompt.ErrPrompt):
         tmp = raw_input()
         return tmp[0].lower()
 
-class cfgFile(object):
-    def write(self, content):
-        self.File.write(content)
-
-    def __del__(self):
-        try:
-            self.CloseFile()
-        except AttributeError:
-            pass
-
+class BaseCFGFile(object):
     def GetPath(self, name): # Name is a the name of part in this project file structure, like "cfg"
         """
         Return string: realpath of part in this project file structure
@@ -45,6 +36,38 @@ class cfgFile(object):
         os.chdir(os.path.curdir + os.path.sep + name.lower())
         path = os.path.realpath(os.getcwd())
         os.chdir(pwd)
+
+class cfgFileIn(BaseCFGFile):
+    def InitFile(self, name, path, TransferredMeaning = False):
+        self.name = name
+        if TransferredMeaning:
+            self.path = self.GetPath(path)
+        else:
+            self.path = os.path.realpath(path)
+        try:
+            self.File = open(self.path + os.path.sep + self.name)
+        except:
+            self.File = None
+        return self.File
+
+    def read(self):
+        return self.File.read()
+
+class cfgFile(BaseCFGFile):
+    def write(self, content):
+        """
+        Simply call file.write(content)
+        """
+        self.File.write(content)
+
+    def __del__(self):
+        """
+        Save all changes
+        """
+        try:
+            self.CloseFile()
+        except AttributeError:
+            pass
 
         return path
     
@@ -65,7 +88,7 @@ class cfgFile(object):
         if TransferredMeaning:
             self.path = self.GetPath(path)
         else:
-            self.path = os.path.readpath(path)
+            self.path = os.path.realpath(path)
         self.swp = '.' + self.name + '.swp'
         try:
             shutil.copyfile(self.path + os.path.sep + self.name, self.path + os.path.sep + self.swp)
