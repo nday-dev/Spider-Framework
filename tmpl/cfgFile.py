@@ -24,6 +24,9 @@ class PromptClass(Prompt.ErrPrompt):
         return tmp[0].lower()
 
 class BaseCFGFile(object):
+    """
+    Base. Only contain GetPath()
+    """
     def GetPath(self, name): # Name is a the name of part in this project file structure, like "cfg"
         """
         Return string: realpath of part in this project file structure
@@ -38,6 +41,11 @@ class BaseCFGFile(object):
         os.chdir(pwd)
 
 class cfgFileIn(BaseCFGFile):
+    """
+    Inherit from BaseCFGFile
+    Aim: for load file only
+    Hack: by pack file.read, support json.load directly
+    """
     def InitFile(self, name, path, TransferredMeaning = False):
         self.name = name
         if TransferredMeaning:
@@ -54,6 +62,11 @@ class cfgFileIn(BaseCFGFile):
         return self.File.read()
 
 class cfgFile(BaseCFGFile):
+    """
+    Inherit from BaseCFGFile
+    Aim: for dump file.
+    Hack: by pack file.write, support json.dump directly
+    """
     def write(self, content):
         """
         Simply call file.write(content)
@@ -128,6 +141,9 @@ class cfgFile(BaseCFGFile):
         shutil.copyfile(self.path + os.path.sep + self.swp, self.path + os.path.sep + self.name)
 
     def CloseFile(self):
+        """
+        Close File and save it via rename swp file to target file
+        """
         self.File.close()
         os.rename(self.path + os.path.sep + self.swp, self.path + os.path.sep + self.name)
 

@@ -10,7 +10,7 @@ class Extractor(object):
         Method can be cumstomed or selected from a list of members:
         A string with its name is also allowed (using eval)
         List:
-            RegularExpression(content, template = self.DefaultTemplate)
+            ReExtractor(self, content)
         Template is the pattern that methods uses
         """
         self.DefaultTemplate = Template
