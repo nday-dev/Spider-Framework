@@ -1,6 +1,6 @@
 #--coding:utf-8--
 #__common__code__.py
-#Create a file in $cfg path
+#Create/Modify/Read a file in $cfg path
 import re
 import os
 import shutil
