@@ -23,11 +23,12 @@ class PromptClass(Prompt.ErrPrompt):
         tmp = raw_input()
         return tmp[0].lower()
 
-class BaseCFGFile(object):
+class BasecfgFile(object):
     """
     Base. Only contain GetPath()
     """
-    def GetPath(self, name): # Name is a the name of part in this project file structure, like "cfg"
+    @staticmethod
+    def GetPath(name): # Name is a the name of part in this project file structure, like "cfg"
         """
         Return string: realpath of part in this project file structure
         Sample of name: "cfg", "$cfg"
@@ -40,9 +41,9 @@ class BaseCFGFile(object):
         path = os.path.realpath(os.getcwd())
         os.chdir(pwd)
 
-class cfgFileIn(BaseCFGFile):
+class cfgFileIn(BasecfgFile):
     """
-    Inherit from BaseCFGFile
+    Inherit from BasecfgFile
     Aim: for load file only
     Hack: by pack file.read, support json.load directly
     """
@@ -61,9 +62,9 @@ class cfgFileIn(BaseCFGFile):
     def read(self):
         return self.File.read()
 
-class cfgFile(BaseCFGFile):
+class cfgFile(BasecfgFile):
     """
-    Inherit from BaseCFGFile
+    Inherit from BasecfgFile
     Aim: for dump file.
     Hack: by pack file.write, support json.dump directly
     """
@@ -82,8 +83,6 @@ class cfgFile(BaseCFGFile):
         except AttributeError:
             pass
 
-        return path
-    
     def InitFile(self, name, path, TransferredMeaning = False, Prompt = False, Force = False):
         """
         Arguments:

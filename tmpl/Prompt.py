@@ -9,7 +9,8 @@ class ErrPrompt(BasePrompt):
     Define some of Err Prompts
     Usually print to sys.stderr
     """
-    def PrintErr(self, content):
+    @staticmethod
+    def PrintErr(content):
         import sys
         """
         Automous write content to sys.stderr and add '\n' to the end
