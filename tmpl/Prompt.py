@@ -11,10 +11,10 @@ class ErrPrompt(BasePrompt):
     """
     @staticmethod
     def PrintErr(content):
-        import sys
-        """
+        r"""
         Automous write content to sys.stderr and add '\n' to the end
         """
+        import sys
         sys.stderr.write(content + '\n')
         sys.stderr.flush()
     
