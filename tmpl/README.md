@@ -4,6 +4,8 @@
 ##Template:
 - cfgFile
     - A template for creating cfg files under $cfg folder, provide cover and edit modes.
+- Distributor
+    - A template for distribute manager.
 - Extractor
     - A template for info extractors, support Regular Expression now.
 - Platform

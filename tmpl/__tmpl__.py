@@ -4,6 +4,7 @@ Import all things in tmpl
 ------------
 List:
     cfgFile
+    Distributor
     Extractor
     Platform
     Prompt
