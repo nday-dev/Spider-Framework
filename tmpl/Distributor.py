@@ -12,6 +12,10 @@ class BaseDistributor(object):
     class QueueManager(managers.BaseManager):
         pass
 
+    def __init__(self, workerClass = None):
+        """Use workerClass() to initialize a object"""
+        self.workerClass = workerClass
+
     def __del__(self):
         """
         Autommatically call self.manager.shutdown()
