@@ -19,7 +19,7 @@ class Extractor(object):
         else:
             self.Extract = Method
 
-    def ChangeMethod(self, Method = None):
+    def SetMethod(self, Method = None):
         """
         Use this function to reset the method of self.Extract after initialization.
         Method Default = self.Extract
@@ -29,7 +29,7 @@ class Extractor(object):
         if Method:
             self.Extract = Method
 
-    def ChangeTemplate(self, Template = None):
+    def SetTemplate(self, Template = None):
         """
         Use this function to reset the value of sle.DefaultTemplate after initialization
         Template Default = self.DefaultTemplate
