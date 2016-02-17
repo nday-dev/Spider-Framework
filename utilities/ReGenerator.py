@@ -145,7 +145,6 @@ class Generator(object):
         json.dump(self.RegularExpression, self.cfgfile)
         self.cfgfile.SaveFile()
 
-
     def main(self):
         prompt = PromptClass()
         self.cfgfile = cfgFile.cfgFile()
