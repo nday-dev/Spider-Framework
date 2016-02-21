@@ -28,6 +28,13 @@ class BaseDistributor(object):
         if self.status == "started":
             self.manager.shutdown()
 
+    def SetWorkerClass(self, workerClass = None):
+        """Setter of self.workerClass"""
+        if workerClass:
+            self.workerClass = workerClass
+
+    # def new(self, 
+
     def Start(self, address, authkey = None):
         """
         address is (str, int) of legal (IP address, port) if it is a client. For server IP is ''.
